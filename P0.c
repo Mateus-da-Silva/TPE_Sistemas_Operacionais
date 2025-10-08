@@ -12,14 +12,14 @@ int main() {
 
     // Cria o processo P1
     if (!CreateProcess(
-            NULL,           // Nome do executável
-            "p1.exe",       // Comando a executar (precisa ter p1.exe na mesma pasta)
+            NULL,
+            "p1.exe",
             NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
         printf("Erro ao criar processo P1.\n");
         return 1;
     }
 
-    // Espera o processo P1 terminar
+    
     WaitForSingleObject(pi.hProcess, INFINITE);
 
     DWORD exitCode;

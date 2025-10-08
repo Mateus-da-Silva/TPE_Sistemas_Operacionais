@@ -9,22 +9,22 @@
 int ids[MAX_IDS];
 int total_ids = 0;
 int current_index = 0;
-HANDLE lock; // mutex para controlar acesso às IDs
+HANDLE lock; 
 
-// Função que simula uma API
+
 void fake_api(int id, char *response) {
     double valor = (rand() % 10000) / 100.0;
     sprintf(response, "{\"id\":%d,\"status\":\"ok\",\"valor\":%.2f}", id, valor);
 }
 
-// Função executada por cada thread
+
 DWORD WINAPI thread_func(LPVOID param) {
     int thread_id = *(int*)param;
     FILE *log = fopen("logs.txt", "a");
     if (!log) return 0;
 
     while (1) {
-        WaitForSingleObject(lock, INFINITE); // bloqueia o acesso
+        WaitForSingleObject(lock, INFINITE); 
         if (current_index >= total_ids) {
             ReleaseMutex(lock);
             break;
@@ -44,7 +44,7 @@ DWORD WINAPI thread_func(LPVOID param) {
                 thread_id, id, resposta, data);
         fflush(log);
 
-        Sleep(10); // simula tempo de resposta da API
+        Sleep(10); 
     }
 
     fclose(log);
@@ -61,7 +61,7 @@ int main() {
         return 1;
     }
 
-    // Lê os IDs do arquivo
+    
     while (fscanf(f, "%d", &ids[total_ids]) != EOF && total_ids < MAX_IDS)
         total_ids++;
     fclose(f);
